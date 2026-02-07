@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八区域资源下载中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        /* 渐变背景 */
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        /* 页面容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* 8区域网格布局 */
+        .area-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        /* 单个区域卡片样式 */
+        .area-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+        }
+
+        /* 悬停动画效果 */
+        .area-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+            background: white;
+        }
+
+        .area-card h3 {
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 0.8rem;
+        }
+
+        .area-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* 模态框遮罩 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        /* 模态框内容 */
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+            animation: modalFade 0.3s ease;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: #f44336;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 1.2rem;
+        }
+
+        .modal-desc {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        /* 下载按钮 */
+        .download-btn {
+            background: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 12px rgba(66,230,149,0.3);
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            .area-card {
+                min-height: 150px;
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">资源下载中心</h1>
+        <div class="area-grid">
+            <!-- 区域1 -->
+            <div class="area-card" data-id="1">
+                <h3>资源区域一</h3>
+                <p>点击查看详情并下载</p >
+            </div>
+            <!-- 区域2 -->
+            <div class="area-card" data-id="2">
+                <h3>资源区域二</h3>
+                <p>点击查看详情并下载</p >
+            </div>
+            <!-- 区域3 -->
+            <div class="area-card" data-id="3">
+                <h3>资源区域三</h3>
+                <p>点击查看详情并下载</p >
+            </div>
+            <!-- 区域4 -->
+            <div class="area-card" data-id="4">
+                <h3>资源区域四</h3>
+                <p>点击查看详情并下载</p >
+            </div>
+            <!-- 区域5 -->
+            <div class="area-card" data-id="5">
+                <h3>资源区域五</h3>
+                <p>点击查看详情并下载</p >
+            </div>
+            <!-- 区域6 -->
+            <div class="area-card" data-id="6">
+                <h3>资源区域六</h3>
+                <p>点击查看详情并下载</p >
+            </div>
+            <!-- 区域7 -->
+            <div class="area-card" data-id="7">
+                <h3>资源区域七</h3>
+                <p>点击查看详情并下载</p >
+            </div>
+            <!-- 区域8 -->
+            <div class="area-card" data-id="8">
+                <h3>资源区域八</h3>
+                <p>点击查看详情并下载</p >
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹出模态框 -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeModal">&times;</span>
+            <h2 class="modal-title" id="modalTitle">区域标题</h2>
+            <p class="modal-desc" id="modalDesc">区域详细说明内容</p >
+            <button class="download-btn" id="downloadBtn">立即下载</button>
+        </div>
+    </div>
+
+    <script>
+        // ====================== 可自定义修改的配置区域 ======================
+        // 每个区域的标题、说明、下载链接，直接修改此处即可
+        const areaConfig = [
+            {
+                id: 1,
+                title: "资源区域一",
+                desc: "这是区域一的详细说明文本，可在此处填写资源介绍、使用说明等内容。",
+                downloadUrl: "https://example.com/download1.zip" // 区域1下载链接
+            },
+            {
+                id: 2,
+                title: "资源区域二",
+                desc: "这是区域二的详细说明文本，可在此处填写资源介绍、使用说明等内容。",
+                downloadUrl: "https://example.com/download2.zip" // 区域2下载链接
+            },
+            {
+                id: 3,
+                title: "资源区域三",
+                desc: "这是区域三的详细说明文本，可在此处填写资源介绍、使用说明等内容。",
+                downloadUrl: "https://example.com/download3.zip" // 区域3下载链接
+            },
+            {
+                id: 4,
+                title: "资源区域四",
+                desc: "这是区域四的详细说明文本，可在此处填写资源介绍、使用说明等内容。",
+                downloadUrl: "https://example.com/download4.zip" // 区域4下载链接
+            },
+            {
+                id: 5,
+                title: "资源区域五",
+                desc: "这是区域五的详细说明文本，可在此处填写资源介绍、使用说明等内容。",
+                downloadUrl: "https://example.com/download5.zip" // 区域5下载链接
+            },
+            {
+                id: 6,
+                title: "资源区域六",
+                desc: "这是区域六的详细说明文本，可在此处填写资源介绍、使用说明等内容。",
+                downloadUrl: "https://example.com/download6.zip" // 区域6下载链接
+            },
+            {
+                id: 7,
+                title: "资源区域七",
+                desc: "这是区域七的详细说明文本，可在此处填写资源介绍、使用说明等内容。",
+                downloadUrl: "https://example.com/download7.zip" // 区域7下载链接
+            },
+            {
+                id: 8,
+                title: "资源区域八",
+                desc: "这是区域八的详细说明文本，可在此处填写资源介绍、使用说明等内容。",
+                downloadUrl: "https://example.com/download8.zip" // 区域8下载链接
+            }
+        ];
+        // =================================================================
+
+        // 获取DOM元素
+        const modal = document.getElementById("modal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalDesc = document.getElementById("modalDesc");
+        const downloadBtn = document.getElementById("downloadBtn");
+        const closeModal = document.getElementById("closeModal");
+        const areaCards = document.querySelectorAll(".area-card");
+
+        // 点击区域卡片弹出模态框
+        areaCards.forEach(card => {
+            card.addEventListener("click", () => {
+                const areaId = parseInt(card.dataset.id);
+                const config = areaConfig.find(item => item.id === areaId);
+                
+                // 填充模态框内容
+                modalTitle.textContent = config.title;
+                modalDesc.textContent = config.desc;
+                
+                // 绑定下载链接
+                downloadBtn.onclick = () => {
+                    window.open(config.downloadUrl, "_blank");
+                };
+                
+                // 显示模态框
+                modal.style.display = "flex";
+            });
+        });
+
+        // 关闭模态框
+        closeModal.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        // 点击遮罩层关闭模态框
+        modal.addEventListener("click", (e) => {
+            if(e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>
